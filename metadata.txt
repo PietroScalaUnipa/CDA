@@ -1,0 +1,47 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=CDA - Coastal Dynamics Analyzer
+qgisMinimumVersion=3.0
+description=The Coastal Dynamics Analyzer (CDA) is a new plugin for QGIS, developed to provide an automatic method for Shoreline Change Analysis (SCA), improving the accuracy and speed of the analysis.The CDA plugin is written in PyQGIS (version v.1.0.0). It allows you to define a piecewise polynomial baseline and generate transects for shoreline change analysis. CDA allows commonly used rate-of-change such as End Point Rate (EPR), Net Shoreline Movement (NSM), Shoreline Change Envelope (SCE), and Linear Regression Rate (LRR) to be calculated, providing reports in .csv and shapefile formats. 
+version=1.0
+author=Scala et al., 2024 - UNIVERSITY OF PALERMO, MARINE AND COASTAL ENGINEERING LAB
+email=pietro.scala@unipa.it
+
+about=The Coastal Dynamics Analyzer (CDA) is a new plugin for QGIS, developed to provide an automatic method for Shoreline Change Analysis (SCA), improving the accuracy and speed of the analysis. The CDA plugin is written in PyQGIS (version v.1.0.0). It allows you to define a piecewise polynomial baseline and generate transects for shoreline change analysis. CDA allows commonly used rate-of-change such as End Point Rate (EPR), Net Shoreline Movement (NSM), Shoreline Change Envelope (SCE), and Linear Regression Rate (LRR) to be calculated, providing reports in .csv and shapefile formats. Easily installed using the QGIS plugin manager or as a Python script, the plugin is based on QGIS algorithms and scientific libraries. It provides an intuitive environment for analysing coastal transects and, due to its speed and accuracy, make it suitable for regional studies and for providing parameters needed for erosion management strategies. In addition, CDA is distinguished by its ability to perform detailed and automated analyses, supporting the scientific community, industry professionals, and coastal managers in monitoring coastal changes, identifying erosion-prone areas, and evaluating the effectiveness of mitigation measures.
+
+tracker=https://github.com/PietroScalaUnipa/CDA
+repository=https://github.com/PietroScalaUnipa/CDA
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=yes
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags= Shoreline, PyQGIS, Shoreline Change Analysis, Erosio/Accretionn rate analysis
+
+homepage=https://github.com/PietroScalaUnipa/CDA
+category=Analysis
+icon=icon.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
+
