@@ -37,10 +37,11 @@ paper (Scala et al., 2024):
 Pietro Scala, Giorgio Manno, Giuseppe Ciraolo, Coastal Dynamics Analyzer (CDA): A QGIS Plugin for Transect Based Analysis of Coastal Erosion, 2024
 
 
-Contacts 
+# Contacts 
 For more information about CDA plugin, contact: 
 Pietro Scala, pietro.scala@unipa.it  
-Giorgio Manno, giorgio.manno@unipa.it 
+Giorgio Manno, giorgio.manno@unipa.it
+
 Department of Engineering, University of Palermo (UNIPA) Sicily, Italy. 
 
 # CDA example results
