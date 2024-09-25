@@ -39,7 +39,7 @@ https://doi.org/10.1016/j.ocecoaman.2022.106226.
 
 Please when cite CDA plugin, cite both methodology work (Manno et al., 2022) and plugin 
 paper (Scala et al., 2024):  
-Scala, Pietro and Manno, Giorgio and Ciraolo, Giuseppe, Coastal Dynamics Analyzer (Cda): A Qgis Plugin for Transect Based Analysis of Coastal Erosion. Available at SSRN: https://ssrn.com/abstract=4918062
+Scala, Pietro and Manno, Giorgio and Ciraolo, Giuseppe, Coastal Dynamics Analyzer (Cda): A Qgis Plugin for Transect Based Analysis of Coastal Erosion. Available at SSRN: [https://ssrn.com/abstract=4918062](https://doi.org/10.1016/j.softx.2024.101894)
 
 # Contacts 
 For more information about CDA plugin, contact: 
