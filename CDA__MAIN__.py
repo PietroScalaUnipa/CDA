@@ -872,12 +872,36 @@ elif AA == 0:
     # Lunghezza del provider dei dati dopo l'aggiunta delle feature
     length_after_adding_features = baseline_provider.featureCount()
 
+    ######################################
+    ###############
+    ###########
+    # Calcola la lunghezza della linea
+    baseline_length = base_geometry.length()
 
-    # Aggiungi un campo "JOIN" al layer baseline
-    baseline_provider.addAttributes([QgsField("JOIN", QVariant.Int)])
-    baseline.updateFields()
-    baseline.updateExtents()
+    # Calcola Irregularity come rapporto tra lunghezza della linea e il numero di transetti
+    irregularity = baseline_length / n_transects/100
 
+    # Calcola la media delle differenze tra tutte le posizioni Y dei punti interpolati
+    y_differences = [abs(y_values[i+1] - y_values[i]) for i in range(len(y_values) - 1)]
+    mean_y_difference = sum(y_differences) / len(y_differences)
+
+    # Calcola Roughness come prodotto tra Irregularity e la media delle differenze Y
+    roughness = irregularity * mean_y_difference/2
+
+    # Scrivi i risultati nel file di output
+    with open(outfolder_transects + 'n_transects.txt', 'w') as f:
+        f.write(f"Number of transects: {n_transects}\n")
+        f.write(f"Irregularity: {irregularity}\n")
+        f.write(f"Roughness: {roughness}\n")
+
+        # Aggiungi un campo "JOIN" al layer baseline
+        baseline_provider.addAttributes([QgsField("JOIN", QVariant.Int)])
+        baseline.updateFields()
+        baseline.updateExtents()
+######################################
+    ###############
+    ###########
+    
     # Imposta tutti i valori del campo "JOIN" su 1 per ogni feature
     for feature in baseline.getFeatures():
         baseline.dataProvider().changeAttributeValues({feature.id(): {baseline.fields().indexFromName("JOIN"): 1}})
