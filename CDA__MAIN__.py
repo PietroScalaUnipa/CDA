@@ -8,6 +8,39 @@ import sys
 import processing
 from qgis.core import QgsProcessingFeatureSourceDefinition
 
+class CoastalDynamicsAnalyzer:
+    def __init__(self, iface):
+        self.iface = iface
+        self.plugin_dir = iface.pluginDirectory() + "/CoastalDynamicsAnalyzer"
+        self.actions = []
+        self.menu = 'Coastal Dynamics Analyzer'
+        self.toolbar = self.iface.addToolBar('Coastal Dynamics Analyzer')
+        self.toolbar.setObjectName('Coastal Dynamics Analyzer')
+
+    def initGui(self):
+        icon_path = self.plugin_dir + "/icon.png"
+        self.add_action(icon_path, text="Run Coastal Dynamics Analyzer", callback=self.run, parent=self.iface.mainWindow())
+
+    def unload(self):
+        for action in self.actions:
+            self.iface.removePluginMenu(self.menu, action)
+            self.iface.removeToolBarIcon(action)
+        del self.toolbar
+
+    def add_action(self, icon_path, text, callback, parent=None):
+        icon = QIcon(icon_path)
+        action = QAction(icon, text, parent)
+        action.triggered.connect(callback)
+        self.iface.addPluginToMenu(self.menu, action)
+        self.iface.addToolBarIcon(action)
+        self.actions.append(action)
+        return action
+
+    def run(self):
+        dialog = NumberInputDialog()
+        dialog.exec_()
+
+
 class NumberInputDialog(QDialog):
     def __init__(self):
         super(NumberInputDialog, self).__init__()
@@ -100,13 +133,13 @@ class NumberInputDialog(QDialog):
         
         self.layout.addWidget(note4)
         
-        note_lll = QLabel(" \n Cite as Qwerty et al., 2024 ")
+        note_lll = QLabel(" \n Cite as Scala et al., 2024 ")
         note_lll.setStyleSheet("font-style: italic")
         note_lll.setAlignment(Qt.AlignRight)  # Imposta l'allineamento a sinistra
         self.layout.addWidget(note_lll)
 
         # Crea una QLabel per il testo del link
-        link_label = QLabel('<a href="https://www.unipa.it/dipartimenti/ingegneria/cds/ingegneriaambientaleperlosvilupposostenibile2303">Click here</a>')
+        link_label = QLabel('<a href="https://github.com/PietroScalaUnipa/CDA">Click here</a>')
         link_label.setOpenExternalLinks(True)  # Apre il link nel browser esterno quando viene cliccato
         link_label.setAlignment(Qt.AlignRight)  # Imposta l'allineamento a destra
 
@@ -872,36 +905,12 @@ elif AA == 0:
     # Lunghezza del provider dei dati dopo l'aggiunta delle feature
     length_after_adding_features = baseline_provider.featureCount()
 
-    ######################################
-    ###############
-    ###########
-    # Calcola la lunghezza della linea
-    baseline_length = base_geometry.length()
 
-    # Calcola Irregularity come rapporto tra lunghezza della linea e il numero di transetti
-    irregularity = baseline_length / n_transects/100
+    # Aggiungi un campo "JOIN" al layer baseline
+    baseline_provider.addAttributes([QgsField("JOIN", QVariant.Int)])
+    baseline.updateFields()
+    baseline.updateExtents()
 
-    # Calcola la media delle differenze tra tutte le posizioni Y dei punti interpolati
-    y_differences = [abs(y_values[i+1] - y_values[i]) for i in range(len(y_values) - 1)]
-    mean_y_difference = sum(y_differences) / len(y_differences)
-
-    # Calcola Roughness come prodotto tra Irregularity e la media delle differenze Y
-    roughness = irregularity * mean_y_difference/2
-
-    # Scrivi i risultati nel file di output
-    with open(outfolder_transects + 'n_transects.txt', 'w') as f:
-        f.write(f"Number of transects: {n_transects}\n")
-        f.write(f"Irregularity: {irregularity}\n")
-        f.write(f"Roughness: {roughness}\n")
-
-        # Aggiungi un campo "JOIN" al layer baseline
-        baseline_provider.addAttributes([QgsField("JOIN", QVariant.Int)])
-        baseline.updateFields()
-        baseline.updateExtents()
-######################################
-    ###############
-    ###########
-    
     # Imposta tutti i valori del campo "JOIN" su 1 per ogni feature
     for feature in baseline.getFeatures():
         baseline.dataProvider().changeAttributeValues({feature.id(): {baseline.fields().indexFromName("JOIN"): 1}})
